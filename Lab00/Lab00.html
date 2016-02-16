@@ -1,0 +1,22 @@
+<doctype html>
+
+<link rel="stylesheet" type = "text/css" href="mystyle.css">
+<h2>My High School Career</h2>
+
+
+<div class = "container">
+  	<img src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAFlAAAAJGZkMTQwMWU4LWFjMTctNGQ3ZC1hMzdkLWM0MGQxNzcxMDEwZQ.jpg">
+  	<br/>
+  	<br/>
+	<a href="https://www.linkedin.com/in/sweta-karlekar-797363a7">My Resume</a>
+	<br/>
+	<br/>
+</div>
+	<h3>Extracurricular Activities:</h3>
+		<div class = "container" id = "activities">
+		<ul>
+			<li ng-repeat = "extra in extracurriculars">{{extra.name}}</li>
+		</ul>
+	</div>
+<a ng-href="#/home" id = "back_button">Back</a> 
+

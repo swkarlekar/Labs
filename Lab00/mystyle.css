@@ -1,0 +1,55 @@
+body {
+    background-color: paleturquoise;
+    font-family: 'Arvo';
+}
+
+h1 {
+    color: navy;
+    margin-left: 20px;
+        font-family: 'Cantarell';
+
+}
+h2 {
+    color: red;
+    margin-left: 10px;
+        font-family: 'Arvo';
+
+}
+h3 {
+	color:darkorchid;
+	margin-left: 30px;
+	    font-family: 'Arvo';
+
+}
+h4 {
+	color: firebrick;
+	margin-left: 20px;
+	    font-family: 'Arvo';
+
+}
+.wasChosen {
+	stroke-width: 4;
+}
+.container {
+	margin-left: 30px;
+	    font-family: 'Cantarell';
+
+}
+
+#activities {
+	color:darkmagenta;
+	margin-left: 30px;
+	    font-family: 'Arvo';
+
+}
+#back_button {
+	margin-left: 10px;
+}
+
+.links {
+	color: red;
+	margin-left: 20px;
+	font-family: 'Cantarell';
+
+}
+

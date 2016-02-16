@@ -1,0 +1,19 @@
+<doctype html>
+<h2>Quiz Game</h2>
+
+<div class = "container">
+	Element: 
+		<br />
+		<input type = "text" ng-model="answer" ng-disabled = "stop" ng-keyup = "checkAnswer()"/>
+		<br />
+		<span id = "time">{{totalTime}}</span>
+		<span id = "length">{{answeredElements}}</span>
+	<br />
+	<button ng-click = "startTimer();">Start Timer</button>
+		<br />
+	<br />
+	<ng-include src = "'images/periodictable.svg'"></ng-include>
+</div>
+<a ng-href="#/home" id = "back_button">Back</a> 
+
+
