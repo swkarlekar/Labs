@@ -1,0 +1,35 @@
+{
+  "name": "labs",
+  "version": "1.0.0",
+  "description": "Sweta Karlekar TJ'16 Web Development Labs",
+  "main": "server.js",
+  "scripts": {
+    "test": "git repository (https://github.com/swkarlekar/Labs.git)",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swkarlekar/Labs.git"
+  },
+  "keywords": [
+    "author:",
+    "Sweta",
+    "Karlekar",
+    "<sweta.karlekar@hotmail.com>"
+  ],
+  "author": "Sweta Karlekar",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/swkarlekar/Labs/issues"
+  },
+  "homepage": "https://github.com/swkarlekar/Labs#readme",
+  "dependencies": {
+    "express": "^4.13.4",  
+     "mongoose"   : "~3.6.2",
+    "morgan"     : "~1.2.2",
+    "body-parser": "~1.5.2",
+    "method-override": "~2.1.2"
+
+  },
+  "devDependencies": {}
+}
