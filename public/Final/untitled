@@ -1,0 +1,153 @@
+<html>
+<head>
+  <title>Circle</title>
+</head>
+<style type="text/css">
+  .circle {
+      border-radius: 50%;
+      behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+      width: 80px;
+      height: 80px;
+      background: blue;
+  }
+
+  #node {
+    float: left;
+  }
+
+  #node2 {
+    margin-left: 184px;
+  }
+
+  .content {
+    width:350px;
+    height:70px;
+    padding:10px;
+    border:1px solid #aaaaaa;
+  }
+
+  span {
+    margin-left: 20px;
+    color: white;
+  }
+
+  #svg {
+    z-index: -30;
+    position: fixed;
+    margin-left: 80px;
+  }
+</style>
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+<script type="text/javascript">
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCWb8FN9SPngfb1QIWbub0WSSMThojZ2HI",
+    authDomain: "web-dev-final-paper.firebaseapp.com",
+    databaseURL: "https://web-dev-final-paper.firebaseio.com",
+    storageBucket: ""
+  };
+  firebase.initializeApp(config);
+
+  function printConnection() {
+
+    var node1 = document.getElementById("nodeName");
+    var node2 = document.getElementById("nodeName2");
+
+
+    firebase.database().ref("nodes/" + node1.value).on('value', function(snapshot) {
+      var bool = snapshot.exists();
+      if(!bool){
+          firebase.database().ref("nodes/" + node1.value).set(
+          {
+              connections: [node2.value],
+              numconnections: 1
+          }
+      }
+      else{
+        var object = snapshot.val();
+        object = JSON.stringify(object);
+        var num = object.numconnections + 1;
+        console.log(object.connections);
+        var array = object.connections.push(node2.value); 
+      }
+    });
+    
+   
+
+}
+</script>
+<script type="text/javascript">
+  function allowDrop(ev) {
+      ev.preventDefault();
+  }
+
+  function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+  }
+
+  function drop(ev) {
+      ev.preventDefault();
+      var data = ev.dataTransfer.getData("text");
+      ev.target.appendChild(document.getElementById(data));
+  }
+
+  function hideCircle () {
+    document.getElementById('node').style.visibility = 'hidden';
+    document.getElementById('node2').style.visibility = 'hidden';
+    document.getElementById('svg').style.visibility = 'hidden';
+  }
+
+  function addName () {
+    var name = document.getElementById('nodeName').value;
+    var name2 = document.getElementById('nodeName2').value;
+    document.getElementById('name').innerHTML = name;
+    document.getElementById('name2').innerHTML = name2;
+    document.getElementById('node').style.visibility = 'visible';
+    document.getElementById('node2').style.visibility = 'visible';
+    //document.getElementById('nodeName').value = "";
+    //document.getElementById('nodeName2').value = "";
+  }
+
+  function createConnection () {
+      document.getElementById('node').setAttribute('draggable', false);
+    document.getElementById('node2').setAttribute('draggable', false);
+    document.getElementById('svg').style.visibility = 'visible';
+  }
+</script>
+<body onload='hideCircle()'>
+  Connect <input type='text' id='nodeName'> to <input type='text' id='nodeName2'>
+  <button id='submitNName' onclick='addName()'>Create Nodes</button>
+</br>
+</br>
+  <div class = 'content' ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div id="node" draggable="true" ondragstart="drag(event)" class="circle">
+</br>
+</br>
+      <span id='name'>Temp</span>
+    </div>
+
+    <div id="node2" draggable="true" ondragstart="drag(event)" class="circle">
+</br>
+</br>
+      <span id='name2'>Temp</span>
+    </div>
+  </div>
+</br>
+  <p>Drag Them Over:</p>
+  <div class="content" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <svg id='svg' width="104px" height="70px">
+      <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,6 L9,3 z" fill="black" />
+        </marker>
+      </defs>
+
+      <line x1="0" y1="40" x2="60" y2="40" stroke="#000" stroke-width="5" marker-end="url(#arrow)" />
+    </svg>
+  </div>
+</br>
+</br>
+
+  <button id='create' onclick='createConnection();printConnection();'>Create Connection</button>
+</body>
+</html>

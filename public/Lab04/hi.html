@@ -1,0 +1,50 @@
+<html>
+<head>
+	<title>First AJAX Call</title>
+	<style type="text/css">
+	body{
+		background-color:teal;
+	}
+	</style>
+	<script type="text/javascript">
+		$(document).ready(function(){
+		$('#calculator').click(calc());
+	})
+	
+	function calc(){
+
+		///////////////	
+
+		$.ajax({
+			url:'postspringbreakpd2.php', 
+			data:: {
+				num1:$('#first').val(),
+				num2:$('#second').val()
+			}, 
+			success:function(response){
+				$('#outputDiv').html(response);
+			}
+		})
+		///////////////////
+		
+		var num1=document.getElementById("first").value;
+		var num2=document.getElementById("second").value;
+		var ajax=new XMLHttpRequest();
+		ajax.onreadystatechange=function(){
+		//	if(ajax.readyState==4&&ajax.status==200) {
+				document.getElementById("outputDiv").innerHtml=ajax.responseText;
+			//};
+			console.log(ajax.responseText);
+		}
+		ajax.open("GET","postspringbreakpd2.php?num1="+num1+"&num2="+num2);
+		ajax.send();
+	}
+	</script>
+</head>
+<body>
+<input type="text" id="first">
+<input type="text" id="second">
+<button onclick="calc()">Calculate</button>
+<div id="outputDiv"></div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<html>
+<head>
+	<title>API Lab</title>
+	<script	src = "https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+	  	<link rel="stylesheet" type = "text/css" href="mystyle.css">
+        <link href='https://fonts.googleapis.com/css?family=Arvo:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Cantarell:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+	<script type="text/javascript">
+		function generateOutput(){
+			var weather = ""; 
+			// to pass in: days, url, function, datatype
+			var city = $("#city").val();
+			$.ajax({
+				url:"http://api.openweathermap.org/data/2.5/weather", 
+				data: {
+					q:city,
+					APPID:"830831b97fb37cf5839551231b4407dd",
+					Client_ID: "dbf3fd5633214915a94b99cecdc70ebf",
+					Client_Secret: "9625d968e926406d817a274b5a7087f5"
+				},
+				datatype: "JSON",
+				success: function(results){
+					console.log(results);
+						var temp1 = results.main.temp; 
+						weather = results.weather[0].description;
+						console.log(weather);
+						var inttemp = Math.round((parseFloat(temp1, 2) - 273.0)*(9/5)+32); 
+						var output_doc = document.getElementById("outputWeather");
+						output_doc.innerHTML = "Your weather is currently " + weather + "."; 
+						//console.log(weather);
+						//weather = weather.replace(" ", "+");
+						//console.log(weather);
+						//getYouTubeVideos(weather);
+						//outputStr += "Weather for ";  
+						//outputStr += results.name + ": <br>";
+						//outputStr += inttemp;  
+						//outputStr += " deg F";  
+					//$("#outputSchedule").html(outputStr);
+						weather.replace(" ", "+");
+						getYouTubeVideos(weather);
+				}
+			})
+
+		}
+		function getYouTubeVideos(weather){
+		var apikey = "AIzaSyC6OCaWZPtQ8QVd-rFuSz-ytzoMwSFDiwM";
+		$.ajax({
+				url:"https://www.googleapis.com/youtube/v3/search", 
+				data: {
+					part: "snippet",
+					q: weather+"+songs",
+					maxResults: "15",
+					key:apikey
+				},
+				datatype: "JSON",
+				success: function(results){
+				var parent = document.getElementById("parent");
+				if(document.contains(parent)){
+					parent.parentNode.removeChild(parent);
+				}
+				parent = document.createElement("DIV");
+				parent.setAttribute("id", "parent");
+				parentParent.appendChild(parent); 
+					console.log(results);
+					var results = results.items; 
+					for (var i = 0; i < results.length; i++)
+					{
+						var video_id = results[i].id.videoId; 
+						var img_src = results[i].snippet.thumbnails.medium.url;
+						var video_title = results[i].snippet.title; 
+						var video_url = "https://www.youtube.com/watch?v="+video_id;
+						var img = document.createElement("IMG"); 
+						var link = document.createElement("a");
+						link.setAttribute("href", video_url);
+						img.setAttribute('src', img_src);
+						img.setAttribute('border', 0);
+						link.appendChild(img); 
+						var parent = document.getElementById("parent");
+						parent.appendChild(link);
+					}
+
+				}
+			})
+	}
+	</script>
+</head>
+<body>
+	<h2>Search for Weather-Related Songs</h2>
+	<input id = 'city' placeholder = "Enter your city here!">
+	<button onclick = "generateOutput()">Find Videos</button>
+	<br />	<br />
+	<div id = "outputWeather"></div>
+	<br />
+	<div id = "parentParent"></div>
+</body>
+</html>

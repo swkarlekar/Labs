@@ -1,24 +1,35 @@
 <doctype html>
-<h2>Quiz Game</h2>
+<h2>Quiz Game</h2> <h3>How many elements can you name in a minute?</h3>
 
+<body>
 <div class = "container">
+	Click start and enter as many elements as you can before the timer runs out!
+	<br />
+		<br />
 	Element: 
 		<br />
-		<input type = "text" ng-model="answer" ng-disabled = "stop" ng-keyup = "checkAnswer()"/>
-		<br />
-		<span id = "time">{{totalTime}}</span>
-		<span id = "length">{{answeredElements}}</span>
+		<input type = "text" id = "answerBox" ng-model="answer" ng-disabled = "stopAnswer" ng-keyup = "checkAnswer()" ng-focus = "turnToAnswerBox"/>
 	<br />
-	<h3><timer/></h3>
-	<button ng-click = "start();">Start</button>
-		<br />
-	<button ng-click = "stop();">Stop</button>
-		<br />
-	<button ng-click = "reset();">Reset</button>
-		<br />
+		Timer: <span id = "time" ng-bind = "totalTime"></span>
+	<br />
+	<button ng-click = "startTimer();" ng-disabled = "stopStart">Start</button>
+
+	<button ng-click = "stopTimer();" ng-disabled = "stopStop">Stop</button>
+	<button ng-click = "resetTimer();">Reset</button>
+	<br />
+			<br />
+
+	<span id = "scoreEndGame">Score:</span> <span id = "score" ng-bind = 'score'></span>
+
+	<br />
+	<span ng-bind = 'highScores'></span>
+
+	<br />
+
+
 	<object id = "periodicTable" type = "image/svg+xml" data = "images/periodictable.svg"></object>
 	<!--<ng-include src = "'images/periodictable.svg'"></ng-include>-->
 </div>
 <a ng-href="#/home" id = "back_button">Back</a> 
-
+</body>
 

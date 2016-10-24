@@ -1,0 +1,156 @@
+<html>
+<head>
+  <title>Map of Nodes</title>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+</head>
+<style type="text/css">
+  .node:hover text {
+    display: inline;
+  }
+  body {
+    color: black;
+  }
+</style>
+
+<script type="text/javascript">
+  // $(document).ready(function  () {
+  //  d3.select(#map)
+  //    .selectAll('div')
+  //    .data(data)
+  // })
+
+var nodesList; 
+var linksList;
+  function getRandomNum(){
+    return (int)(Math.random()*1100+100);
+  }
+
+  $(document).ready(function  () {
+    var data; 
+      $.ajax({
+        url:"https://web-dev-final-paper.firebaseio.com/.json", 
+        datatype: "JSON",
+        success: function(results){
+          console.log(results);
+          nodesList = results.nodes.nodes; 
+          console.log(nodesList);
+          linksList = results.links.links; 
+          console.log(linksList);
+          loadGraph();
+      }})});
+
+ 
+  function loadGraph(){
+    var rad = 60;
+    data = {
+       nodes: nodesList,
+       links: linksList
+     };
+        
+    console.log(data);
+     var c10 = d3.scale .category10();
+     var svg = d3.select("body")
+       .append("svg")
+       .attr("width", 1200)
+       .attr("height", 800);
+
+     var drag = d3.behavior.drag()
+       .on("drag", function(d, i) {
+         d.x += d3.event.dx
+         d.y += d3.event.dy
+         d3.select(this).attr("cx", d.x).attr("cy", d.y);
+         links.each(function(l, li) {
+           if (l.source == i) {
+             d3.select(this).attr("x1", d.x).attr("y1", d.y);
+           } else if (l.target == i) {
+             d3.select(this).attr("x2", d.x).attr("y2", d.y);
+           }
+         });
+       });
+
+     var links = svg.selectAll("link")
+       .data(data.links)
+       .enter()
+       .append("line")
+       .attr("class", "link")
+       .attr("x1", function(l) {
+         var sourceNode = data.nodes.filter(function(d, i) {
+           return i == l.source;
+         })[0];
+         d3.select(this).attr("y1", sourceNode.y);
+         return sourceNode.x;
+       })
+       .attr("x2", function(l) {
+         var targetNode = data.nodes.filter(function(d, i) {
+           return i == l.target;
+         })[0];
+         d3.select(this).attr("y2", targetNode.y);
+         return targetNode.x;
+       })
+       .attr("fill", "none")
+       .attr("stroke", "black")
+         .attr("marker-end", "url(#arrowhead)");
+
+
+     var nodes = svg.selectAll("node")
+       .data(data.nodes)
+       .enter()
+       .append("circle")
+       .attr("class", "node")
+       .attr("cx", function(d) {
+         return d.x;
+       })
+       .attr("cy", function(d) {
+         return d.y;
+       })
+       .attr("r", function(d) {
+         rad = (d.x)/12;
+         return rad;
+       })
+       .attr("fill", function(d, i) {
+         return c10(i);
+       })
+       .call(drag)
+       .append("svg:title")
+         .text(function(d) { return d.name; });
+
+        svg.append("svg:defs").append("svg:marker")
+         .attr("id", "arrowhead")
+           .attr('viewBox', '0 -5 10 10')
+         .attr("refX", 70) /*must be smarter way to calculate shift*/
+         .attr("refY", 0)
+         .attr("markerWidth", 8)
+         .attr("markerHeight", 10)
+         .attr("orient", "auto")
+         .attr("markerUnits", "strokeWidth")
+         .append("svg:path")
+           .attr("d", "M0,-5L10,0L0,5");
+
+          //  this.dragLine = svgG.append('svg:path')
+          // .attr('class', 'link dragline hidden')
+          // .attr('d', 'M0,0L0,0')
+          // .style('marker-end', 'url(#arrowhead)');
+}
+  
+
+
+
+
+
+</script>
+
+<body>
+    <link rel="stylesheet" type = "text/css" href="mystyle.css">
+        <link href='https://fonts.googleapis.com/css?family=Arvo:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Cantarell:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+  <!--<a href="final_hope_v1.html">New System</a>-->
+  <h2>Systems Mapping</h2> 
+  <h3>Hover over or drag and drop circles to see connections between various systems or add your own!</h3>
+  <!--<button onclick="loadGraph()">Load Graph</button>-->
+  &nbsp;&nbsp;<input type="button" onclick="location.href='final_hope_v1.html';" value="Add Connection" />
+  <div id='map'>
+
+  </div>
+</body>
+</html>

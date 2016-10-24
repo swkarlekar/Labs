@@ -1,0 +1,176 @@
+<doctype html>
+<h2>Magazine Subscriptions</h2> 
+<h3>Please register for your magazines here.</h3>
+<link rel="stylesheet" type = "text/css" href="Lab03/mystyle03.css">
+<body>
+	<div class = 'cart'>
+	<h4>My Cart:</h4>
+	<ul>
+		<li ng-repeat = 'mag in listMags'>{{ mag }}</li>
+	</ul>
+</div>
+<div class = "container">
+	<form ng-submit = 'submitForm()'>
+	<label>Name:</label> <input type="text" required name="name" id="name" placeholder = "Jane Doe" ng-model = 'name'>
+	<br />
+
+	<label>Date:</label> <input type="date" maxlength="10" required name="date" id="date" value = "{{date | date:'MM-dd-yyyy'}}">
+
+	<!--<label>Date:</label> <span>
+
+	<input type="number" maxlength="2" required class = "date" name="month" id="month" placeholder = "MM" width = '5' value = "{{date | date:'MM'}}">
+	<input type="number" maxlength="2" required class = "date" name="day" id="day" placeholder = "DD" width = '5' value = "{{date | date:'dd'}}">
+	<input type="number" maxlength="4" required class = "date" name="year" id="year" placeholder = "YYYY" width = '10' value = "{{date | date:'yyyy'}}">
+	</span>-->
+	<br />
+
+	<label>Email:</label> <input type="text" required name="email" id="email" placeholder = "janedoe@hotmail.com" ng-model = "email">
+	<br />
+
+	<label>Gender:</label>  <br>
+	
+	<input type="radio" name="gender" id="gender" style = 'font-size:12px' value = "female">Female<br>
+	<input type="radio" name="gender" id="gender" style = 'font-size:12px' value = "male">Male<br>
+	<input type="radio" name="gender" id="gender" style = 'font-size:12px' value = "other">Other<br>
+	<input type="radio" name="gender" id="genderDefault" style = 'font-size:12px' value = "notAnswer" checked = true>Prefer Not to Answer<br>
+	
+	<label>Phone Number:</label> <input type="text" maxlength="12" required name="phoneNumber" id="phoneNumber" placeholder = 'XXX-XXX-XXXX' pattern="^\d{3}-\d{3}-\d{4}$" ng-model = "phoneNum">
+	<br />
+
+
+	<label>Street:</label> <input type="text" required name="street" id="street" placeholder = "54321 Patriot Street" ng-model = 'street'>
+	<br />
+
+
+	<label>City:</label> <input type="text" required name="city" id="city" placeholder = "New York City" ng-model = 'city'>
+	<br />
+
+
+	<label>State:</label> <input type="text" pattern="[A-Z][A-Z]" maxlength="2" required name="state" id="state" placeholder = "NY" ng-model = 'state'>
+	<br />
+
+
+	<label>Zip Code:</label> <input type="text" pattern="[0-9]*" maxlength="5" required name="zip" id="zip" placeholder = "12345" ng-model = 'zipCode'>
+	<br />
+</div>
+
+	<h3>What Magazines Are You Looking For?</h3>
+
+<div class = 'container'>
+	<input type="radio" name="listType" id="listType" style = 'font-size:12px' value = "full_list" ng-model = 'checkedBool' ng-change = 'setFullList()'>Full List<br>
+	<input type="radio" name="listType" id="listType" style = 'font-size:12px' value = "dropdown" ng-model = 'checkedBool' ng-change = 'setDropdown()'>Dropdown<br>
+
+	<div class="dropdown" ng-show ='dropdownBool'>
+		<br />
+
+  	<button class="dropbtn">Genres</button>
+ 	<div class="dropdown-content">
+  		<div class="dropdown1">
+		<button class = 'dropbtn1'>Political Magazines</button>
+		<div class="dropdown-content1">
+			 <a ng-click = "addMag('Time')">Time</a>
+			 <a ng-click = "addMag('People')">People</a>
+			 <a ng-click = "addMag('Newsweek')">Newsweek</a>
+			 <a ng-click = "addMag('Politics')">Politics</a>
+		</div></div>
+		<div class="dropdown2">
+		<button class = 'dropbtn2'>Lifestyle Magazines</button>
+		<div class="dropdown-content2">
+			 <a ng-click = "addMag('Men\'s Health')">Men's Health</a>
+			 <a ng-click = "addMag('Women\'s Health')">Women's Health</a>
+			 <a ng-click = "addMag('Lifestyle')">Lifestyle</a>
+			 <a ng-click = "addMag('Gloria')">Gloria</a>
+		</div></div>
+		<div class="dropdown3">
+		<button class = 'dropbtn3'>Science Magazines</button>
+		<div class="dropdown-content3">
+			 <a ng-click = "addMag('Smithsonian')">Smithsonian</a>
+			 <a ng-click = "addMag('Scientific American')">Scientific American</a>
+			 <a ng-click = "addMag('Discover')">Discover</a>
+			 <a ng-click = "addMag('Science News')">Science News</a>
+		</div></div>
+		<div class="dropdown4">
+		<button class = 'dropbtn4'>Fashion Magazines</button>
+		<div class="dropdown-content4">
+			 <a ng-click = "addMag('Vogue')">Vogue</a>
+			 <a ng-click = "addMag('Elle')">Elle</a>
+			 <a ng-click = "addMag('Bazaar')">Bazaar</a>
+			 <a ng-click = "addMag('Marie Claire')">Marie Claire</a>
+		</div></div>
+  </div>
+</div>
+
+	<div id = "full_list" ng-show = 'fullListBool'>
+	<ul>
+    <li>
+      <span><img src="http://www.adweek.com/files/imagecache/node-detail/news_article/newsweek-stack-hed-2013_0.jpg" width = "80" height = "60px" ng-click = "politicalMag()"/>
+      <h3>Political Magazines</h3></span>
+      <p>Includes Time, People, Newsweek, Politics, etc.</p>
+    </li>
+      	<div ng-show = 'political_true'>
+      		<ul>
+      			<li><a ng-click = "addMag('Time')">Time</a></li>
+			 	<li><a ng-click = "addMag('People')">People</a></li>
+			 	<li><a ng-click = "addMag('Newsweek')">Newsweek</a></li>
+			 	<li><a ng-click = "addMag('Politics')">Politics</a></li>
+      		</ul>
+      	</div>
+
+    <li>
+    	<img src="https://livingvintagedotcom.files.wordpress.com/2013/09/covermags1.jpg" width = "80" height = "60px" ng-click = "lifestyleMag()"/>
+      <h3>Lifestyle Magazines</h3>
+      <p>Includes Men's Health, Women's Health, Lifestyle, Gloria, etc.</p>
+    </li>
+    <div ng-show = 'lifestyle_true'>
+      		<ul>
+      			<li><a ng-click = "addMag('Men\'s Health')">Men's Health</a></li>
+			 	<li><a ng-click = "addMag('Women\'s Health')">Women's Health</a></li>
+			 	<li><a ng-click = "addMag('Lifestyle')">Lifestyle</a></li>
+			 	<li><a ng-click = "addMag('Gloria')">Gloria</a></li>
+      		</ul>
+      	</div>
+ 
+    <li>
+    	<img src="http://landartgenerator.org/blagi/wp-content/uploads/2010/06/PopSciMidRes.jpg" width = "80" height = "60px" ng-click = 'scienceMag()'/>
+      <h3>Science Magazines</h3>
+      <p>Includes Smithsonian, Scientific American, Discover, Science News, etc.</p>
+    </li>
+    <div ng-show = 'science_true'>
+      		<ul>
+      			<li><a ng-click = "addMag('Smithsonian')">Smithsonian</a></li>
+			 	<li><a ng-click = "addMag('Scientific American')">Scientific American</a></li>
+			 	<li><a ng-click = "addMag('Discover')">Discover</a></li>
+			 	<li><a ng-click = "addMag('Science News')">Science News</a></li>
+      		</ul>
+      	</div>
+
+     <li>
+     	<img src="https://www.theskinnymirrors.com/wp-content/uploads/2015/10/pile-of-magazines-horiz.jpg" width = "80" height = "60px" ng-click = 'fashionMag()'/>
+      <h3>Fashion Magazines</h3>
+      <p>Includes Vogue, Elle, Bazaar, Marie Claire, Teen Vogue, etc.</p>
+    </li>
+    <div ng-show = 'fashion_true'>
+      		<ul>
+      			<li><a ng-click = "addMag('Vogue')">Vogue</a></li>
+			 	<li><a ng-click = "addMag('Elle')">Elle</a></li>
+				<li><a ng-click = "addMag('Bazaar')">Bazaar</a></li>
+			 	<li><a ng-click = "addMag('Marie Claire')">Marie Claire</a></li>
+      		</ul>
+      	</div>
+   </ul>
+   </div>
+     <br>
+  <input type="submit" id="submit" value="Submit" />
+
+</form>
+</div>
+
+	</div>
+<br />
+<div id = 'output'> </div>
+<br />
+<a ng-href="#/home" id = "back_button">Back</a> 
+</body>
+
+
+

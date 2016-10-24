@@ -1,0 +1,26 @@
+<doctype html>
+<h2>Scrabble Word Finder</h2>
+<style type="text/css">
+	.#outputMinis {
+	color: navy;
+	margin-left: 15px;
+}
+	</style>
+
+<div class = "container">
+ 	First Letter: <input type = 'text' id = 'firstLetterBox' ng-model = 'firstLetter' maxlength = '1' width = '5'/>
+ 	<br />
+ 	Last Letter: <input type = 'text' id = 'lastLetterBox' ng-model = 'lastLetter' maxlength = '1' width = '5'/>
+ 	 	<br />
+
+ 	Length: <input type = 'text' id = 'lengthBox' ng-model = 'length' width = '5'/>
+ 	 	<br />
+
+ 	<button ng-click = 'searchAllParams();'>Search</button><br />
+
+ <br />
+ 	<div id = 'output'></div>
+ 	<br />
+</div>
+<a ng-href="#/home" id = "back_button">Back</a> 
+

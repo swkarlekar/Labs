@@ -1,0 +1,50 @@
+{
+  "Domain:Archaea": {
+    "Kingdom:Archaea": {
+      "Phyla":{},
+      "Phyla":"Korarchaeota": {},
+      "Phyla":"Nanoarchaeota": {}
+    }
+  },
+  "Domain:Eubacteria": {
+    "Kingdom:Bacteria": {
+      "Phyla:Cyanobacteria": {},
+      "Phyla:Spirochetes": {},
+      "Phyla:Proteotic Bacteria": {}
+    }
+  },
+  "Domain:Eukarya": {
+    "Kingdom:Protista": {
+      "Phyla:Protozoa": {},
+      "Phyla:Euglenophyta": {}
+    },
+    "Kingdom:Fungi": {},
+    "Phyla:Basidiomycota": {},
+    "Kingdom:Plantae": {
+      "Phyla:Magnoliophyta": {},
+      "Phyla:Coniferophyta": {},
+      "Phyla:Pteridophyta": {},
+      "Phyla:Bryophyta": {},
+      "Phyla:Lycopodiophyta": {}
+    },
+    "Kingdom:Animalia": {
+      "Phyla:Mollusca": {},
+      "Phyla:Porifera": {},
+      "Phyla:Cnidaria": {},
+      "Phyla:Platyhelminthes": {},
+      "Phyla:Nematoda": {},
+      "Phyla:Annelida": {},
+      "Phyla:Anthropoda": {},
+      "Phyla:Echinodermata": {},
+      "Phyla:Chordata": {
+        "Class:Mammalia": {},
+        "Class:Amphibia": {},
+        "Class:Aves": {},
+        "Class:Agnatha": {},
+        "Class:Reptilia": {},
+        "Class:Chondrichthyes": {},
+        "Class:Osteichthyes": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,245 @@
+<html>
+<head>
+  <title>Circle</title>
+</head>
+<style type="text/css">
+  .circle {
+      border-radius: 50%;
+      behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+      width: 80px;
+      height: 80px;
+      background: blue;
+  }
+
+  #node {
+    float: left;
+  }
+
+  #node2 {
+    margin-left: 184px;
+  }
+
+  .content {
+    width:350px;
+    height:70px;
+    padding:10px;
+    border:1px solid #aaaaaa;
+  }
+
+  span {
+    margin-left: 20px;
+    color: white;
+  }
+
+  #svg {
+    z-index: -30;
+    position: fixed;
+    margin-left: 80px;
+  }
+</style>
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+  <link rel="stylesheet" type = "text/css" href="mystyle.css">
+
+<script type="text/javascript">
+  var bool1;
+  var bool2;
+  var node1; 
+  var node2; 
+  var object1;
+  var object2;
+  var objBool1;
+  var objBool2;
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCWb8FN9SPngfb1QIWbub0WSSMThojZ2HI",
+    authDomain: "web-dev-final-paper.firebaseapp.com",
+    databaseURL: "https://web-dev-final-paper.firebaseio.com",
+    storageBucket: ""
+  };
+  firebase.initializeApp(config);
+
+  function initializeConnection() {
+      node1 = document.getElementById("nodeName");
+      node2 = document.getElementById("nodeName2");
+
+      firebase.database().ref("listNodes/" + node1.value).on('value', function(snapshot) {
+      bool1 = snapshot.exists();
+      objBool1 = snapshot.val();
+    });
+
+      firebase.database().ref("listNodes/" + node2.value).on('value', function(snapshot) {
+      bool2 = snapshot.exists();
+      objBool2= snapshot.val();
+    });
+
+      firebase.database().ref("nodes/nodes").on('value', function(snapshot) {
+      //bool2 = snapshot.exists();
+      object1 = snapshot.val();
+    });
+
+      firebase.database().ref("links/links").on('value', function(snapshot) {
+      //bool2 = snapshot.exists();
+      object2 = snapshot.val();
+    });
+
+  }
+
+    function getRandomNum(){
+    return parseInt(Math.random()*600+100);
+  }
+
+  function makeConnection() {
+      //if(!bool){
+          console.log("in the if statement");
+
+          // firebase.database().ref("nodes/").set(
+          // {
+          //     nodes: [{name: node1.value}, 
+          //     {name: node2.value}]
+          // });
+          // firebase.database().ref("links/").set(
+          // {
+          //     links: [{
+          //        source: 0,
+          //        target: 1
+          //      }, {
+          //        source: 1,
+          //        target: 2
+          //      }]
+          // });
+      var source1; 
+      if(!bool1){
+        source1 = object1.push({
+          name: node1.value,
+          x: getRandomNum(), 
+          y: getRandomNum()
+
+        })-1;
+        firebase.database().ref("listNodes/" + node1.value).set(
+          {
+            name: node1.value, 
+            index: object1.length-1
+          });
+      }
+      else{
+        console.log(object1);
+        source1 = objBool1.index;
+        console.log('index of source');
+        console.log(source1);
+      }
+      var target2; 
+      if(!bool2){
+        target2 = object1.push({
+          name: node2.value,      
+          x: getRandomNum(), 
+          y: getRandomNum()
+
+        })-1;
+        firebase.database().ref("listNodes/" + node2.value).set(
+        {
+            name: node2.value,
+            index: object1.length-1
+        });
+      }
+      else{
+        target2 = objBool2.index;
+        console.log('index of target');
+        console.log(target2);
+      }
+      object2.push({source: source1, target: target2});
+      console.log('IM AT THE NEW OBJECT');
+          // object.arrayNodes.connections.push(node1.value); 
+      firebase.database().ref("nodes/").set(
+       {
+              nodes: object1
+       });
+      firebase.database().ref("links/").set(
+       {
+              links: object2
+       });
+    
+}
+</script>
+<script type="text/javascript">
+  function allowDrop(ev) {
+      ev.preventDefault();
+  }
+
+  function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+  }
+
+  function drop(ev) {
+      ev.preventDefault();
+      var data = ev.dataTransfer.getData("text");
+      ev.target.appendChild(document.getElementById(data));
+  }
+
+  function hideCircle () {
+    document.getElementById('node').style.visibility = 'hidden';
+    document.getElementById('node2').style.visibility = 'hidden';
+    document.getElementById('svg').style.visibility = 'hidden';
+  }
+
+  function addName () {
+    var name = document.getElementById('nodeName').value;
+    var name2 = document.getElementById('nodeName2').value;
+    document.getElementById('name').innerHTML = name;
+    document.getElementById('name2').innerHTML = name2;
+    document.getElementById('node').style.visibility = 'visible';
+    document.getElementById('node2').style.visibility = 'visible';
+    //document.getElementById('nodeName').value = "";
+    //document.getElementById('nodeName2').value = "";
+  }
+
+  function createConnection () {
+      document.getElementById('node').setAttribute('draggable', false);
+    document.getElementById('node2').setAttribute('draggable', false);
+    document.getElementById('svg').style.visibility = 'visible';
+  }
+</script>
+<body onload='hideCircle()'>
+  Connect <input type='text' id='nodeName'> to <input type='text' id='nodeName2'>
+  <button id='submitNName' onclick='addName();initializeConnection();'>Create Nodes</button>
+</br>
+</br>
+  <div class = 'content' ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div id="node" draggable="true" ondragstart="drag(event)" class="circle">
+</br>
+</br>
+      <span id='name'>Temp</span>
+    </div>
+
+    <div id="node2" draggable="true" ondragstart="drag(event)" class="circle">
+</br>
+</br>
+      <span id='name2'>Temp</span>
+    </div>
+  </div>
+</br>
+  <p>Drag Them Over:</p>
+  <div class="content" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <svg id='svg' width="104px" height="70px">
+      <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,6 L9,3 z" fill="black" />
+        </marker>
+      </defs>
+
+      <line x1="0" y1="40" x2="60" y2="40" stroke="#000" stroke-width="5" marker-end="url(#arrow)" />
+    </svg>
+  </div>
+</br>
+</br>
+
+  <!--<button id='create' onclick='createConnection();makeConnection();location.href='http://google.com';'>Create Connection</button>-->
+    <!--<button id='create' onclick='createConnection();makeConnection();'>Create Connection</button>-->
+    <input type="button" onclick="createConnection();makeConnection();" value="Submit Connection" />
+    <br />
+    <br />
+    <input type="button" onclick="location.href='final.html';" value="View Map" />
+
+<br />
+<br />
+</body>
+</html>

@@ -1,6 +1,6 @@
 body {
     background-color: paleturquoise;
-        font-family: 'Arvo';
+    font-family: 'Arvo';
 }
 
 h1 {
@@ -55,11 +55,23 @@ h4 {
 	font-family: 'Cantarell';
 
 }
-.date {
-	width: 35px;
+.outer {
+	color: red;
+	margin-left: 20px;
+	font-family: 'Cantarell';
 }
-#year {
-	width: 50px;
+.kingdom {
+	color:darkmagenta;
+	margin-left: 40px;
+	    font-family: 'Arvo';
 }
-
-
+.phyla {
+		color:rebeccapurple;
+	font-size: 18;
+		margin-left: 20px;
+	    font-family: 'Cantarell';
+}
+.root {
+	color: navy;
+	font-family: "Cantarell";
+}

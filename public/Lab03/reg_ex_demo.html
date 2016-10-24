@@ -1,0 +1,26 @@
+<html>
+<head>
+	<title>regex Practice</title>
+	<script type="text/javascript">
+		function verEmail () {
+			var inputEmail = event.target.value;
+			var emailregex = /[a-z]+@[a-z]+\.[a-z]+/i
+			if(!emailregex.test(inputEmail)) {
+				alert('HI');
+			};
+		}
+	</script>
+</head>
+<body>
+	<form>
+		<div>UserID:
+			<input name='id' type='text' pattern='[a-z][A-Za-z\n]+'>
+		</div>	
+		<div>Email:
+			<input name='email' type='text' onblur='verEmail()'>
+		</div>
+		<div><input type='submit'>
+		</div>
+	</form>
+</body>
+</html>

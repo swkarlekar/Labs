@@ -1,0 +1,41 @@
+{"name": "",
+"group" : "root", 
+"subgroup" :[
+  {
+  	"name": "Archaea", 
+  	"group": "domain",
+  	"subgroup": [{
+      "name" : "Archaea", 
+      "group": "kingdom"
+    }, 
+      {
+        "name": "A1", 
+        "group": "kingdom"
+        }]
+  },
+  {
+  	"name": "Eukarya",
+  	"group": "domain",
+  	"subgroup": [{
+      "name" : "Protista",
+      "group" : "kingdom",
+      "subgroup" : [{
+        "name" : "subsa", 
+        "group" : "phyla"
+        }]
+    }, 
+    {
+      "name" : "Hamsa", 
+      "group" : "kingdom"
+      }]
+  }, 
+  {
+  	"name": "Eubacteria",
+  	"group": "domain",
+  	"subgroup": [{
+      "name" : "Bacteria",
+      "group" : "kingdom"
+    }]
+  }
+]
+}

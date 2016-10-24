@@ -1,0 +1,32 @@
+<html>
+<head>
+	<title>Practice Quiz</title>
+	<style type="text/css">
+		table, th, td {
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<h2>Period 2</h2>
+	<h3>Sweta Karlekar</h3>
+
+<div class = 'container'>
+<table style="width:30%">
+  <tr>
+    <td>Maximum</td>
+    <td><div>{{ max }}</div></td> 
+  </tr>
+  <tr>
+    <td>First Number:</td>
+    <td><input id = 'firstNum' ng-model = 'first'></td> 
+  </tr>
+   <tr>
+    <td>Second Number:</td>
+    <td><input id = 'secondNum' ng-model = 'second'></td> 
+  </tr>
+</table>
+<button ng-click = 'calcMax();'>Calculate Max</button>
+</div>
+</body>
+</html>

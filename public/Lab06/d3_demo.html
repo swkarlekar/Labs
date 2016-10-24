@@ -1,0 +1,44 @@
+<html>
+<head>
+	<title>D3 Bar Graph</title>
+	<script	src = "https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+	<script src = "https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+	<script type="text/javascript">
+	var data = [5, 4, 10, 13, 27, 6, 7, 42];
+	data.sort(function(a, b){return a-b});
+	$(document).ready(function(){
+		d3.select("#myGraph")
+			.selectAll("div")
+			.data(data)
+			.enter().append('div')
+			.text(function(d){
+				return d;
+			})
+			.attr("class", "bar")
+			.style("width", function(d){
+				return (d*12)+"px";
+			})
+	});
+	</script>
+	<style type="text/css">
+		.bar {
+			background-color: turquoise;
+			border: 2px black solid;
+			width: 200px;
+
+		}
+		.bar:hover{
+   		 	color: black;
+    		padding: 12px 16px;
+    		text-decoration: none;
+    		display: block;
+    		background-color: #f1f1f1
+		}
+	</style>
+</head>
+<body>
+	<div id = "myGraph">
+
+	</div>
+</body>
+</html>
